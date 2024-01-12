@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  sessions-db:
+    container_name: sessions-db
+    image: postgres:10
+    env_file:
+      - ./sessions_backend/.env
+    volumes:
+      - ./sessions_backend/db/dev:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+  
+  sessions-nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: sessions-nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./sessions_backend/certs:/etc/nginx/certs
+    depends_on:
+      - sessions-backend
+
+  sessions-backend:
+    container_name: sessions-backend
+    env_file:
+      - ./sessions_backend/.env
+    build:
+      context: ./sessions_backend
+      dockerfile: Dockerfile
+    volumes:
+    - .:/sessions
+    ports:
+    - "3000:3000"
+    depends_on:
+    - sessions-db
+
+  client:
+    container_name: client
+    build: client
+    ports:
+      - '8080:8080'
+    working_dir: /client
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm start
+    depends_on:
+    - sessions-backend
