@@ -10,22 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_11_192038) do
+ActiveRecord::Schema.define(version: 2024_01_18_151558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "clients", force: :cascade do |t|
+  create_table "clients", primary_key: "client_hash_id", id: :string, force: :cascade do |t|
     t.string "name", null: false
-    t.string "client_hash_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_hash_id"], name: "index_clients_on_client_hash_id", unique: true
   end
 
-  create_table "coaches", force: :cascade do |t|
+  create_table "coaches", primary_key: "coach_hash_id", id: :string, force: :cascade do |t|
     t.string "name", null: false
-    t.string "coach_hash_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["coach_hash_id"], name: "index_coaches_on_coach_hash_id", unique: true

@@ -25,11 +25,10 @@ services:
 
   sessions-backend:
     container_name: sessions-backend
+    working_dir: /sessions/sessions_backend
     env_file:
       - ./sessions_backend/.env
-    build:
-      context: ./sessions_backend
-      dockerfile: Dockerfile
+    build: sessions_backend
     volumes:
     - .:/sessions
     ports:

@@ -10,13 +10,14 @@ stop: # Stop the project
 	@docker rm $(API_CONTAINER) || true
 	@docker rm $(WEB_CONTAINER) || true
 	@docker rm $(DB_CONTAINER) || true
+	rm sessions_backend/tmp/pids/server.pid
 
 stop-persist: ## Stop the project for Widnows Users
 	@echo "Stopping the project persistant"
 	$(DOCKER_COMPOSE) stop
 
 db-backup: # DB Backup
-	- docker exec -i $(DB_CONTAINER) /bin/bash -c "PGPASSWORD=$(DB_PASSWORD) pg_dump --username $(USERNAME) $(DB_NAME)" > db/dev/postgress.sql
+	- docker exec -i $(DB_CONTAINER) /bin/bash -c "PGPASSWORD=$(POSTGRES_PASSWORD) pg_dump --username $(USERNAME) $(DB_NAME)" > sessions_backend/db/dev/postgress.sql
 
 db-connect: # DB Connect for MAC Users
 	- $(DOCKER_COMPOSE) exec $(DB_CONTAINER) psql -U $(USERNAME) $(USERNAME)

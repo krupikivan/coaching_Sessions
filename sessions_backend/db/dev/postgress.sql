@@ -53,7 +53,6 @@ ALTER TABLE public.ar_internal_metadata OWNER TO sessions;
 --
 
 CREATE TABLE public.clients (
-    id bigint NOT NULL,
     name character varying NOT NULL,
     client_hash_id character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -64,32 +63,10 @@ CREATE TABLE public.clients (
 ALTER TABLE public.clients OWNER TO sessions;
 
 --
--- Name: clients_id_seq; Type: SEQUENCE; Schema: public; Owner: sessions
---
-
-CREATE SEQUENCE public.clients_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.clients_id_seq OWNER TO sessions;
-
---
--- Name: clients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sessions
---
-
-ALTER SEQUENCE public.clients_id_seq OWNED BY public.clients.id;
-
-
---
 -- Name: coaches; Type: TABLE; Schema: public; Owner: sessions
 --
 
 CREATE TABLE public.coaches (
-    id bigint NOT NULL,
     name character varying NOT NULL,
     coach_hash_id character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -98,27 +75,6 @@ CREATE TABLE public.coaches (
 
 
 ALTER TABLE public.coaches OWNER TO sessions;
-
---
--- Name: coaches_id_seq; Type: SEQUENCE; Schema: public; Owner: sessions
---
-
-CREATE SEQUENCE public.coaches_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.coaches_id_seq OWNER TO sessions;
-
---
--- Name: coaches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sessions
---
-
-ALTER SEQUENCE public.coaches_id_seq OWNED BY public.coaches.id;
-
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: sessions
@@ -170,20 +126,6 @@ ALTER SEQUENCE public.sessions_id_seq OWNED BY public.sessions.id;
 
 
 --
--- Name: clients id; Type: DEFAULT; Schema: public; Owner: sessions
---
-
-ALTER TABLE ONLY public.clients ALTER COLUMN id SET DEFAULT nextval('public.clients_id_seq'::regclass);
-
-
---
--- Name: coaches id; Type: DEFAULT; Schema: public; Owner: sessions
---
-
-ALTER TABLE ONLY public.coaches ALTER COLUMN id SET DEFAULT nextval('public.coaches_id_seq'::regclass);
-
-
---
 -- Name: sessions id; Type: DEFAULT; Schema: public; Owner: sessions
 --
 
@@ -203,17 +145,17 @@ environment	development	2024-01-11 19:28:38.980098	2024-01-11 19:28:38.980098
 -- Data for Name: clients; Type: TABLE DATA; Schema: public; Owner: sessions
 --
 
-COPY public.clients (id, name, client_hash_id, created_at, updated_at) FROM stdin;
-1	mary	b1RTrhfcr43h	2024-01-11 19:28:38.958243	2024-01-11 19:28:38.958243
-2	patricia	agDJbAqa1FZD	2024-01-11 19:28:38.959649	2024-01-11 19:28:38.959649
-3	jennifer	z5k4iLYW6KqX	2024-01-11 19:28:38.960871	2024-01-11 19:28:38.960871
-4	linda	6EdhSZHVkMzB	2024-01-11 19:28:38.962133	2024-01-11 19:28:38.962133
-5	elizabeth	tR9PxWmfWrp2	2024-01-11 19:28:38.963279	2024-01-11 19:28:38.963279
-6	barbara	Zz8vmzdsXj9e	2024-01-11 19:28:38.964439	2024-01-11 19:28:38.964439
-7	susan	9DSkGrV43UhA	2024-01-11 19:28:38.965528	2024-01-11 19:28:38.965528
-8	jessica	13KxaxvAwueA	2024-01-11 19:28:38.966645	2024-01-11 19:28:38.966645
-9	sarah	QvyK3bbhvovt	2024-01-11 19:28:38.967851	2024-01-11 19:28:38.967851
-10	karen	vunGFjWb7VYC	2024-01-11 19:28:38.969099	2024-01-11 19:28:38.969099
+COPY public.clients (name, client_hash_id, created_at, updated_at) FROM stdin;
+mary	b1RTrhfcr43h	2024-01-11 19:28:38.958243	2024-01-11 19:28:38.958243
+patricia	agDJbAqa1FZD	2024-01-11 19:28:38.959649	2024-01-11 19:28:38.959649
+jennifer	z5k4iLYW6KqX	2024-01-11 19:28:38.960871	2024-01-11 19:28:38.960871
+linda	6EdhSZHVkMzB	2024-01-11 19:28:38.962133	2024-01-11 19:28:38.962133
+elizabeth	tR9PxWmfWrp2	2024-01-11 19:28:38.963279	2024-01-11 19:28:38.963279
+barbara	Zz8vmzdsXj9e	2024-01-11 19:28:38.964439	2024-01-11 19:28:38.964439
+susan	9DSkGrV43UhA	2024-01-11 19:28:38.965528	2024-01-11 19:28:38.965528
+jessica	13KxaxvAwueA	2024-01-11 19:28:38.966645	2024-01-11 19:28:38.966645
+sarah	QvyK3bbhvovt	2024-01-11 19:28:38.967851	2024-01-11 19:28:38.967851
+karen	vunGFjWb7VYC	2024-01-11 19:28:38.969099	2024-01-11 19:28:38.969099
 \.
 
 
@@ -221,17 +163,17 @@ COPY public.clients (id, name, client_hash_id, created_at, updated_at) FROM stdi
 -- Data for Name: coaches; Type: TABLE DATA; Schema: public; Owner: sessions
 --
 
-COPY public.coaches (id, name, coach_hash_id, created_at, updated_at) FROM stdin;
-1	robert	oToTcMNXomu4	2024-01-11 19:28:38.940697	2024-01-11 19:28:38.940697
-2	james	r2wzkL2kyerf	2024-01-11 19:28:38.942292	2024-01-11 19:28:38.942292
-3	john	Yk2SeVCK6d5A	2024-01-11 19:28:38.943393	2024-01-11 19:28:38.943393
-4	michael	7snoRvFUD4wr	2024-01-11 19:28:38.944594	2024-01-11 19:28:38.944594
-5	william	ETkA4m1P5z6D	2024-01-11 19:28:38.945712	2024-01-11 19:28:38.945712
-6	david	fEVVEcL32MVi	2024-01-11 19:28:38.947004	2024-01-11 19:28:38.947004
-7	richard	KuMV1yvxgqQG	2024-01-11 19:28:38.948263	2024-01-11 19:28:38.948263
-8	charles	KGfP7L5TeW39	2024-01-11 19:28:38.94949	2024-01-11 19:28:38.94949
-9	joseph	j3ZAhvYx8cz5	2024-01-11 19:28:38.95062	2024-01-11 19:28:38.95062
-10	thomas	Jd7dBwikx6gh	2024-01-11 19:28:38.951928	2024-01-11 19:28:38.951928
+COPY public.coaches (name, coach_hash_id, created_at, updated_at) FROM stdin;
+robert	oToTcMNXomu4	2024-01-11 19:28:38.940697	2024-01-11 19:28:38.940697
+james	r2wzkL2kyerf	2024-01-11 19:28:38.942292	2024-01-11 19:28:38.942292
+john	Yk2SeVCK6d5A	2024-01-11 19:28:38.943393	2024-01-11 19:28:38.943393
+michael	7snoRvFUD4wr	2024-01-11 19:28:38.944594	2024-01-11 19:28:38.944594
+william	ETkA4m1P5z6D	2024-01-11 19:28:38.945712	2024-01-11 19:28:38.945712
+david	fEVVEcL32MVi	2024-01-11 19:28:38.947004	2024-01-11 19:28:38.947004
+richard	KuMV1yvxgqQG	2024-01-11 19:28:38.948263	2024-01-11 19:28:38.948263
+charles	KGfP7L5TeW39	2024-01-11 19:28:38.94949	2024-01-11 19:28:38.94949
+joseph	j3ZAhvYx8cz5	2024-01-11 19:28:38.95062	2024-01-11 19:28:38.95062
+thomas	Jd7dBwikx6gh	2024-01-11 19:28:38.951928	2024-01-11 19:28:38.951928
 \.
 
 
@@ -241,6 +183,7 @@ COPY public.coaches (id, name, coach_hash_id, created_at, updated_at) FROM stdin
 
 COPY public.schema_migrations (version) FROM stdin;
 20240111192038
+20240118151558
 \.
 
 
@@ -250,20 +193,6 @@ COPY public.schema_migrations (version) FROM stdin;
 
 COPY public.sessions (id, start, duration, coach_hash_id, client_hash_id, created_at, updated_at) FROM stdin;
 \.
-
-
---
--- Name: clients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sessions
---
-
-SELECT pg_catalog.setval('public.clients_id_seq', 10, true);
-
-
---
--- Name: coaches_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sessions
---
-
-SELECT pg_catalog.setval('public.coaches_id_seq', 10, true);
 
 
 --
@@ -286,7 +215,7 @@ ALTER TABLE ONLY public.ar_internal_metadata
 --
 
 ALTER TABLE ONLY public.clients
-    ADD CONSTRAINT clients_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT clients_pkey PRIMARY KEY (client_hash_id);
 
 
 --
@@ -294,7 +223,7 @@ ALTER TABLE ONLY public.clients
 --
 
 ALTER TABLE ONLY public.coaches
-    ADD CONSTRAINT coaches_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT coaches_pkey PRIMARY KEY (coach_hash_id);
 
 
 --
